@@ -1,0 +1,158 @@
+{
+	"info": {
+		"_postman_id": "e88b86e5-c08e-49d5-8f73-c85eed47bf74",
+		"name": "Request User",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8327357"
+	},
+	"item": [
+		{
+			"name": "List User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200',()=>{",
+							"pm.response.to.have.status(200);",
+							"})",
+							"pm.test('Response body contain expected field',()=>{",
+							"    let jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"page\",2);",
+							"    pm.expect(jsonData).to.have.property(\"per_page\",6);",
+							"    pm.expect(jsonData).to.have.property(\"total\", 12);",
+							"    pm.expect(jsonData).to.have.property(\"total_pages\", 2);",
+							"    pm.expect(jsonData).to.have.property(\"data\").that.is.an(\"array\");",
+							"    jsonData.data.forEach(user=>{",
+							"        pm.expect(user).to.have.property(\"id\");",
+							"        pm.expect(user).to.have.property(\"email\");",
+							"        pm.expect(user).to.have.property(\"first_name\");",
+							"        pm.expect(user).to.have.property(\"last_name\");",
+							"        pm.expect(user).to.have.property(\"avatar\");",
+							"    });",
+							"",
+							"",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}?page=2",
+					"host": [
+						"{{URL}}"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User not found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 404',()=>{",
+							"    pm.response.to.have.status(404);",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/23",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"23"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 201',()=>{",
+							"    pm.response.to.have.status(201);",
+							"",
+							"})",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Tạo giá trị random",
+							"const randomNumber = Math.floor(Math.random() * 1000);  // Số ngẫu nhiên từ 0 đến 999",
+							"",
+							"// Tạo tên và công việc với phần cố định và phần random",
+							"const randomName = \"abc\" + randomNumber;  // abc + số ngẫu nhiên",
+							"const randomJob = \"job\" + randomNumber;   // job + số ngẫu nhiên",
+							"",
+							"// Lưu các giá trị vào biến môi trường (environment)",
+							"pm.environment.set(\"randomName\", randomName);",
+							"pm.environment.set(\"randomJob\", randomJob);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"{{randomName}}\",\n    \"job\": \"{{randomJob}}\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}",
+					"host": [
+						"{{URL}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": "https://reqres.in/api/users",
+			"type": "default"
+		}
+	]
+}
