@@ -25,7 +25,7 @@ jobs:
         run: npm install -g newman
 
       - name: Run Newman Collection
-        run: newman run Request User.postman_collection.json -r cli,junit --reporter-junit-export newman-report.xml
+        run: newman run "Request User.postman_collection.json" -r cli,junit --reporter-junit-export newman-report.xml
 
       - name: Upload Test Report
         uses: actions/upload-artifact@v4

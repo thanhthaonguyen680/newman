@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Request User" tests="3" time="1.372">
+  <testsuite name="List User" id="22f5c9e8-8f9a-45d3-b3b0-5cc157e93774" timestamp="2025-02-05T15:05:38.807Z" tests="2" failures="0" errors="0" time="0.234">
+    <testcase name="Status code is 200" time="0.234" classname="ListUser"/>
+    <testcase name="Response body contain expected field" time="0.234" classname="ListUser"/>
+  </testsuite>
+  <testsuite name="User not found" id="2fa689ff-f963-4279-a6d4-4b79a1e83ca0" timestamp="2025-02-05T15:05:38.807Z" tests="1" failures="0" errors="0" time="0.523">
+    <testcase name="Status code is 404" time="0.523" classname="UserNotFound"/>
+  </testsuite>
+  <testsuite name="Create User" id="b19c7c57-0dc5-4319-a78b-443ded3e4a13" timestamp="2025-02-05T15:05:38.807Z" tests="1" failures="0" errors="0" time="0.615">
+    <testcase name="Status code is 201" time="0.615" classname="CreateUser"/>
+  </testsuite>
+</testsuites>
